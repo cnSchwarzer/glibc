@@ -12,6 +12,15 @@ arm*)
   fi
   CFLAGS="$CFLAGS -fno-unwind-tables"
 
+  case "$machine" in
+  armeb)
+    endianness=be
+    ;;
+  arm)
+    endianness=le
+    ;;
+  esac
+
   base_machine=arm
   # Lets ask the compiler which ARM family we've got
   # Unfortunately it doesn't define any flags for implementations
@@ -46,6 +55,6 @@ arm*)
     ;;
   esac
 
-  machine=arm/$machine
+  machine=arm/$endianness/$machine
   with_fp_cond="!defined __SOFTFP__"
 esac
